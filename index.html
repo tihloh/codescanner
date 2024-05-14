@@ -57,6 +57,7 @@
                     if (code) {
                         clearInterval(scanInterval);
                         stopScan();
+			alert(code.data);
                         // Redirect back to the previous page with the result as a query parameter
                         const urlParams = new URLSearchParams(window.location.search);
 						const urlParam = urlParams.get('url');
