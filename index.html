@@ -68,7 +68,9 @@
                         clearInterval(scanInterval);
                         stopScan();
                         // Redirect back to the previous page with the result as a query parameter
-                        window.location.href = document.referrer + '?result=' + encodeURIComponent(code.data);
+                        const referrer = document.referrer;
+                        const fullURL = referrer + (referrer.includes('?') ? '&' : '?') + 'result=' + encodeURIComponent(code.data);
+                        window.location.href = fullURL;
                     }
                 }
             }, 100);
