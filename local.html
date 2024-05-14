@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Page with QR Code Scanner</title>
+</head>
+<body>
+    <button id="scanButton">Scan QR Code</button>
+	<div id="currentUrl"></div>
+    <script>
+        document.getElementById('scanButton').addEventListener('click', function() {
+			const currentUrl = window.location.href;
+            window.location.href = 'https://tihloh.github.io/qrcode' + '?url=' + encodeURIComponent(currentUrl);
+        });
+
+        // Listen for messages from the scanner page
+        window.addEventListener('message', function(event) {
+            // Ensure message is from the expected origin
+            if (event.origin === 'https://tihloh.github.io') {
+                // Check if message contains QR code result
+                if (event.data.qrCodeResult) {
+                    // Display result in an alert
+                    alert('QR Code result: ' + event.data.qrCodeResult);
+                }
+            }
+        });
+		
+    </script>
+</body>
+</html>
