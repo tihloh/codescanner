@@ -28,8 +28,6 @@
             try {
                 videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                 videoElement.srcObject = videoStream;
-                startButton.disabled = true;
-                stopButton.disabled = false;
                 scanQRCode();
             } catch (err) {
                 console.error('Error accessing camera:', err);
@@ -40,8 +38,6 @@
             if (videoStream) {
                 videoStream.getTracks().forEach(track => track.stop());
                 videoElement.srcObject = null;
-                startButton.disabled = false;
-                stopButton.disabled = true;
             }
         };
 
