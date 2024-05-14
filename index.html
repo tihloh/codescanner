@@ -67,6 +67,8 @@
                         document.getElementById('result').innerText = `QR Code result: ${code.data}`;
                         clearInterval(scanInterval);
                         stopScan();
+                        // Redirect back to the previous page with the result as a query parameter
+                        window.location.href = document.referrer + '?result=' + encodeURIComponent(code.data);
                     }
                 }
             }, 100);
