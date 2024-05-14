@@ -5,35 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
     <style>
-        #reader {
-            width: 500px;
-            height: 500px;
+        #video {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
             margin: auto;
+        }
+        #controls {
+            text-align: center;
+            margin: 20px;
         }
     </style>
 </head>
 <body>
     <h1>QR Code Scanner</h1>
-    <div id="reader"></div>
+    <video id="video" playsinline autoplay></video>
+    <div id="controls">
+        <button id="start-button">Start Scanning</button>
+        <button id="stop-button" disabled>Stop Scanning</button>
+    </div>
     <p id="result">Scan a QR code to see the result here</p>
 
-    <!-- Include the html5-qrcode library -->
-    <script src="js/html5-qrcode.min.js"></script>
     <script>
-        window.addEventListener('load', function () {
-            const reader = new Html5Qrcode("reader");
+        let videoStream;
+        const videoElement = document.getElementById('video');
+        const startButton = document.getElementById('start-button');
+        const stopButton = document.getElementById('stop-button');
 
-            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-                document.getElementById('result').innerText = `QR Code result: ${decodedText}`;
-            };
+        const startScan = async () => {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                videoElement.srcObject = videoStream;
+                startButton.disabled = true;
+                stopButton.disabled = false;
+                scanQRCode();
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+            }
+        };
 
-            const config = { fps: 10, qrbox: 250 };
+        const stopScan = () => {
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoElement.srcObject = null;
+                startButton.disabled = false;
+                stopButton.disabled = true;
+            }
+        };
 
-            reader.start({ facingMode: "environment" }, config, qrCodeSuccessCallback)
-                .catch(err => {
-                    console.error(`Unable to start scanning, error: ${err}`);
-                });
-        });
+        const scanQRCode = () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const scanInterval = setInterval(() => {
+                if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
+                    canvas.width = videoElement.videoWidth;
+                    canvas.height = videoElement.videoHeight;
+                    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+                    if (code) {
+                        document.getElementById('result').innerText = `QR Code result: ${code.data}`;
+                        clearInterval(scanInterval);
+                        stopScan();
+                    }
+                }
+            }, 100);
+        };
+
+        startButton.addEventListener('click', startScan);
+        stopButton.addEventListener('click', stopScan);
     </script>
+    
+    <!-- Include jsQR library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
 </body>
 </html>
