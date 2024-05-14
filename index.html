@@ -18,19 +18,10 @@
     </style>
 </head>
 <body>
-    <h1>QR Code Scanner</h1>
     <video id="video" playsinline autoplay></video>
-    <div id="controls">
-        <button id="start-button">Start Scanning</button>
-        <button id="stop-button" disabled>Stop Scanning</button>
-    </div>
-    <p id="result">Scan a QR code to see the result here</p>
-
     <script>
         let videoStream;
         const videoElement = document.getElementById('video');
-        const startButton = document.getElementById('start-button');
-        const stopButton = document.getElementById('stop-button');
 
         const startScan = async () => {
             try {
@@ -64,7 +55,6 @@
                     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                     const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
                     if (code) {
-                        document.getElementById('result').innerText = `QR Code result: ${code.data}`;
                         clearInterval(scanInterval);
                         stopScan();
                         // Redirect back to the previous page with the result as a query parameter
@@ -77,8 +67,6 @@
         };
 
         window.onload = startScan;
-        startButton.addEventListener('click', startScan);
-        stopButton.addEventListener('click', stopScan);
     </script>
     
     <!-- Include jsQR library -->
