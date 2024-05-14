@@ -54,13 +54,12 @@
                     if (code) {
                         clearInterval(scanInterval);
                         stopScan();
-			alert(code.data);
                         // Redirect back to the previous page with the result as a query parameter
                         const urlParams = new URLSearchParams(window.location.search);
 						const urlParam = urlParams.get('url');
 						const decodedUrl = decodeURIComponent(urlParam);
                         const referrer = decodedUrl;//document.referrer;
-                        const fullURL = referrer + (referrer.includes('?') ? '&' : '?') + 'result=' + encodeURIComponent(code.data);
+                        const fullURL = referrer + (referrer.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(code.data);
                         window.location.href = fullURL;
                     }
                 }
