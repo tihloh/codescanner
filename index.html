@@ -58,7 +58,10 @@
                         clearInterval(scanInterval);
                         stopScan();
                         // Redirect back to the previous page with the result as a query parameter
-                        const referrer = document.referrer;
+                        const urlParams = new URLSearchParams(window.location.search);
+						const urlParam = urlParams.get('url');
+						const decodedUrl = decodeURIComponent(urlParam);
+                        const referrer = decodedUrl;//document.referrer;
                         const fullURL = referrer + (referrer.includes('?') ? '&' : '?') + 'result=' + encodeURIComponent(code.data);
                         window.location.href = fullURL;
                     }
