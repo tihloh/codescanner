@@ -20,6 +20,7 @@
 <body>
 	<h2>Scan your code</h2>
     <video id="video" playsinline autoplay></video>
+	<button onclick="cancelandreturn();">Cancel</button>
     <script>
         let videoStream;
         const videoElement = document.getElementById('video');
@@ -56,8 +57,8 @@
                         stopScan();
                         // Redirect back to the previous page with the result as a query parameter
                         const urlParams = new URLSearchParams(window.location.search);
-						const urlParam = urlParams.get('url');
-						const decodedUrl = decodeURIComponent(urlParam);
+			const urlParam = urlParams.get('url');
+			const decodedUrl = decodeURIComponent(urlParam);
                         const referrer = decodedUrl;//document.referrer;
                         const fullURL = referrer + (referrer.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(code.data);
                         window.location.href = fullURL;
@@ -67,6 +68,11 @@
         };
 
         window.onload = startScan;
+
+	function cancelandreturn(){
+		const urlParam = urlParams.get('url');
+                window.location.href = decodeURIComponent(urlParam);
+	}
     </script>
     
     <!-- Include jsQR library -->
