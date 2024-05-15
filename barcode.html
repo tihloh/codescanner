@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode Scanner</title>
+    <title>Combined Barcode and QR Code Scanner</title>
     <style>
         #interactive {
             width: 100%;
@@ -16,35 +16,68 @@
             margin: 20px;
         }
     </style>
-    <!-- Include QuaggaJS from a CDN -->
+    <!-- Include QuaggaJS and jsQR from CDNs -->
     <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body>
-    <h1>Barcode Scanner</h1>
-    <div id="interactive" class="viewport"></div>
+    <h1>Combined Barcode and QR Code Scanner</h1>
+    <video id="video" playsinline autoplay></video>
+    <canvas id="canvas" style="display: none;"></canvas>
     <div id="controls">
         <button id="start-button">Start Scanning</button>
         <button id="stop-button" disabled>Stop Scanning</button>
     </div>
-    <p id="result">Scan a barcode to see the result here</p>
+    <p id="result">Scan a barcode or QR code to see the result here</p>
 
     <script>
         const startButton = document.getElementById('start-button');
         const stopButton = document.getElementById('stop-button');
         const resultElement = document.getElementById('result');
+        const videoElement = document.getElementById('video');
+        const canvasElement = document.getElementById('canvas');
+        const canvasContext = canvasElement.getContext('2d');
+        let videoStream;
 
-        const startScanner = () => {
+        const startScanner = async () => {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                videoElement.srcObject = videoStream;
+                startButton.disabled = true;
+                stopButton.disabled = false;
+                startBarcodeScanner();
+                startQRScanner();
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+            }
+        };
+
+        const stopScanner = () => {
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoElement.srcObject = null;
+                startButton.disabled = false;
+                stopButton.disabled = true;
+                Quagga.stop();
+            }
+        };
+
+        const startBarcodeScanner = () => {
             Quagga.init({
                 inputStream: {
                     name: "Live",
                     type: "LiveStream",
-                    target: document.querySelector('#interactive'), // Or '#yourElement' (optional)
+                    target: videoElement, // Use the video element
                     constraints: {
-                        facingMode: "environment" // Or 'user' for the front camera
+                        facingMode: "environment" // Use the back camera
                     },
                 },
                 decoder: {
-                    readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader"] // Add other barcode formats if needed
+                    readers: [
+                        "code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader",
+                        "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader",
+                        "i2of5_reader"
+                    ] // Add other barcode formats if needed
                 }
             }, (err) => {
                 if (err) {
@@ -52,8 +85,6 @@
                     return;
                 }
                 Quagga.start();
-                startButton.disabled = true;
-                stopButton.disabled = false;
             });
 
             Quagga.onDetected((data) => {
@@ -62,10 +93,21 @@
             });
         };
 
-        const stopScanner = () => {
-            Quagga.stop();
-            startButton.disabled = false;
-            stopButton.disabled = true;
+        const startQRScanner = () => {
+            const scanQRCode = () => {
+                canvasElement.width = videoElement.videoWidth;
+                canvasElement.height = videoElement.videoHeight;
+                canvasContext.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+                const imageData = canvasContext.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+                if (code) {
+                    resultElement.textContent = `QR Code detected: ${code.data}`;
+                    stopScanner();
+                } else {
+                    requestAnimationFrame(scanQRCode);
+                }
+            };
+            requestAnimationFrame(scanQRCode);
         };
 
         startButton.addEventListener('click', startScanner);
