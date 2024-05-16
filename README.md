@@ -32,3 +32,24 @@ just add a processor for the arg "qrvalue".
 </code>
 </pre>
 <br>
+<h3>Example #2</h3>
+<pre>
+  <code>
+    	if (isset($_REQUEST['qrvalue'])){ 
+		$qrvalue=$_REQUEST['qrvalue'];
+		$pcode=@$_REQUEST['pcode'];
+		if($pcode!=$qrvalue){
+			$q="UPDATE tblemps SET scancode='$qrvalue' WHERE id='$user_id'";
+			if (!$mysqli-&gt;query($q)) {
+				$error = $mysqli-&gt;error;	
+			}
+		}
+		
+		$url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue";
+		?&gt;
+			&lt;script&gt;window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent("&lt;?=$url;?&gt;");&lt;/script&gt;
+		&lt;?php
+		exit;
+	}
+  </code>
+</pre>
