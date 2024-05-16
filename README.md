@@ -45,7 +45,7 @@ With "pcode" param to compare the code if the same as the previous scan, if the 
 				$error = $mysqli-&gt;error;	
 			}
 		}
-		$url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue";
+		$url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue';
 		?&gt;
 			&lt;script&gt;window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent("&lt;?=$url;?&gt;");&lt;/script&gt;
 		&lt;?php
