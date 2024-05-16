@@ -26,6 +26,9 @@
     <h1>Scan Your Code</h1>
     <video id="video" playsinline autoplay></video>
     <canvas id="canvas"></canvas>
+    <div id="controls">
+        <button id="cancel-button">Cancel</button>
+    </div>
 
     <script>
         const videoElement = document.getElementById('video');
@@ -112,9 +115,19 @@
             const fullURL = decodedUrl + (decodedUrl.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
             window.location.href = fullURL;
         }
-
+        
+        function cancelScan() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlParam = urlParams.get('url');
+            const decodedUrl = decodeURIComponent(urlParam);
+            window.location.href = decodedUrl;
+        }
+        
         // Start the scanner on page load
         window.onload = startScanner;
+        
+        // Add event listener for the cancel button
+        document.getElementById('cancel-button').addEventListener('click', cancelScan);
     </script>
 </body>
 </html>
