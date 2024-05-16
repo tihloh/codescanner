@@ -15,7 +15,7 @@ Something like:
 just add a processor for the arg "qrvalue".
 <br><br>
 <h3>Example</h3><br>
-<pre>
+<code>
   <?php	
     if (isset($_REQUEST['qrvalue'])){
       $qrvalue=$_REQUEST['qrvalue'];
@@ -28,5 +28,5 @@ just add a processor for the arg "qrvalue".
       window.location.href = 'https://tihloh.github.io/qrcode?url=' + encodeURIComponent(window.location.href);
     }
   </script>
-</pre><br><br>
+</code><br><br>
 <a href="https://tihloh.github.io/qrcode/tryme.html">Try Me</a>
