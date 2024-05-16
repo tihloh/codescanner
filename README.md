@@ -32,10 +32,11 @@ just add a processor for the arg "qrvalue".
 </code>
 </pre>
 <h3>Example #2</h3>
-With "pcode" param to compare the code if the same as previous, saves to database if not then load the scanner again for the next code.
+With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code.
 <pre>
   <code>
-    	if (isset($_REQUEST['qrvalue'])){ 
+	&lt;?php
+    	if (isset($_REQUEST['qrvalue'])){
 		$qrvalue=$_REQUEST['qrvalue'];
 		$pcode=@$_REQUEST['pcode'];
 		if($pcode!=$qrvalue){
@@ -51,5 +52,12 @@ With "pcode" param to compare the code if the same as previous, saves to databas
 		&lt;?php
 		exit;
 	}
+	?&gt;
+  &lt;button onclick="openScanner()"&gt;Open Scanner&lt;/button&gt;
+  &lt;script&gt;
+    function openScanner(){
+      window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+    }
+  &lt;/script&gt;
   </code>
 </pre>
