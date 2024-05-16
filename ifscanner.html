@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFrame Page</title>
+</head>
+<body>
+<h1>IFrame Page</h1>
+    <input type="text" id="inputValue" placeholder="Enter a value">
+    <button onclick="sendMessageToParent()">Send Value to Parent</button>
+<script>
+// Generate a unique token for secure communication
+const token = 'secret_token';
+
+// Function to send message to the parent page
+function sendMessageToParent() {
+  // Send a message to the parent page with the token
+  var value = document.getElementById('inputValue').value;
+  window.parent.postMessage({ token: token, message: value }, '*');
+}
+</script>
+
+</body>
+</html>
