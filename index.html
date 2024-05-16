@@ -3,79 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Scanner</title>
+    <title>Scan Your Code</title>
+    <!-- Include Bootstrap CSS from CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        #video {
+        #interactive {
             width: 100%;
             max-width: 500px;
-            height: auto;
             margin: auto;
+            display: block;
         }
-        #controls {
+        video {
+            width: 100%;
+        }
+        canvas {
+            display: none;
+        }
+        .scanner-container {
             text-align: center;
-            margin: 20px;
+            margin-top: 20px;
         }
     </style>
+    <!-- Include QuaggaJS and jsQR from CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body>
-	<h2>Scan your code</h2>
-    <video id="video" playsinline autoplay></video>
-	<button onclick="cancelandreturn();">Cancel</button>
-    <script>
-        let videoStream;
-        const videoElement = document.getElementById('video');
+    <div class="container">
+        <h1 class="text-center mt-5">Scan Your Code</h1>
+        <div class="scanner-container">
+            <video id="video" playsinline autoplay class="border"></video>
+            <canvas id="canvas"></canvas>
+            <div id="controls" class="mt-3">
+                <button id="cancel-button" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+    </div>
 
-        const startScan = async () => {
+    <script>
+        const videoElement = document.getElementById('video');
+        const canvasElement = document.getElementById('canvas');
+        const canvasContext = canvasElement.getContext('2d');
+        let videoStream;
+
+        const startScanner = async () => {
             try {
                 videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                 videoElement.srcObject = videoStream;
+                startBarcodeScanner();
                 scanQRCode();
             } catch (err) {
                 console.error('Error accessing camera:', err);
             }
         };
 
-        const stopScan = () => {
+        const stopScanner = () => {
             if (videoStream) {
                 videoStream.getTracks().forEach(track => track.stop());
                 videoElement.srcObject = null;
+                Quagga.stop();
             }
         };
 
-        const scanQRCode = () => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            const scanInterval = setInterval(() => {
-                if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
-                    canvas.width = videoElement.videoWidth;
-                    canvas.height = videoElement.videoHeight;
-                    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
-                    if (code) {
-                        clearInterval(scanInterval);
-                        stopScan();
-                        // Redirect back to the previous page with the result as a query parameter
-                        const urlParams = new URLSearchParams(window.location.search);
-			const urlParam = urlParams.get('url');
-			const decodedUrl = decodeURIComponent(urlParam);
-                        const referrer = decodedUrl;//document.referrer;
-                        const fullURL = referrer + (referrer.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(code.data);
-                        window.location.href = fullURL;
-                    }
+        const startBarcodeScanner = () => {
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: videoElement,
+                    constraints: {
+                        facingMode: "environment"
+                    },
+                },
+                decoder: {
+                    readers: [
+                        "code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader",
+                        "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader",
+                        "i2of5_reader"
+                    ]
                 }
-            }, 100);
+            }, (err) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                Quagga.start();
+            });
+
+            Quagga.onDetected((data) => {
+                procdata(data.codeResult.code);
+                stopScanner();
+            });
         };
 
-        window.onload = startScan;
+        const scanQRCode = () => {
+            const checkQRCode = () => {
+                if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
+                    canvasElement.width = videoElement.videoWidth;
+                    canvasElement.height = videoElement.videoHeight;
+                    canvasContext.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+                    const imageData = canvasContext.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+                    if (code) {
+                        procdata(code.data);
+                        stopScanner();
+                    } else {
+                        requestAnimationFrame(checkQRCode);
+                    }
+                } else {
+                    requestAnimationFrame(checkQRCode);
+                }
+            };
+            requestAnimationFrame(checkQRCode);
+        };
 
-	function cancelandreturn(){
-		const urlParam = urlParams.get('url');
-                window.location.href = decodeURIComponent(urlParam);
-	}
+        function procdata(data) {
+            // Redirect back to the previous page with the result as a query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlParam = urlParams.get('url');
+            const decodedUrl = decodeURIComponent(urlParam);
+            const fullURL = decodedUrl + (decodedUrl.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
+            window.location.href = fullURL;
+        }
+
+        function cancelScan() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlParam = urlParams.get('url');
+            const decodedUrl = decodeURIComponent(urlParam);
+            window.location.href = decodedUrl;
+        }
+
+        // Start the scanner on page load
+        window.onload = startScanner;
+
+        // Add event listener for the cancel button
+        document.getElementById('cancel-button').addEventListener('click', cancelScan);
     </script>
-    
-    <!-- Include jsQR library -->
-    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
