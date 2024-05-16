@@ -17,19 +17,18 @@ just add a processor for the arg "qrvalue".
 <h3>Example</h3>
 <pre>
 <code>
-  <?php	
+  &lt;?php	
     if (isset($_REQUEST['qrvalue'])){
       $qrvalue=$_REQUEST['qrvalue'];
       echo "Scan result: ".$qrvalue;
     }
-  ?>
-  <button onclick="openScanner()">Open Scanner</button>
-  <script>
+  ?&gt;
+  &lt;button onclick="openScanner()"&gt;Open Scanner&lt;/button&gt;
+  &lt;script&gt;
     function openScanner(){
       window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
     }
-  </script>
+  &lt;/script&gt;
 </code>
 </pre>
 <br>
-<a href="https://tihloh.github.io/codescanner/tryme.html">Try Me</a>
