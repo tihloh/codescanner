@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Parent Page</title>
+	</head>
+	<body>
+		<h1>Parent Page</h1>
+		<iframe src="https://tihloh.github.io/codescanner/ifscanner.html" id="myIframe" width="600" height="400"></iframe>
+
+		<div id="messageContainer">Waiting for message from iframe...</div>
+		<div id="url">url</div>
+
+		<script>
+		// Generate a unique token for secure communication
+		//const token = 'secret_token';
+
+		// Function to handle messages received from the iframe
+		function handleMessage(event) {
+		  // Check if the message is from the iframe and contains the correct token
+		  //if (event.data.token === token) {
+			// Log the message received from the iframe
+			//console.log('Message from iframe:', event.data.message);
+			
+			// Do something with the data received from the iframe
+			// For example, update content on the parent page
+			document.getElementById('messageContainer').innerText = event.data.message;
+		  //}
+		}
+				
+		// Add event listener to listen for messages from the iframe
+		window.addEventListener('message', handleMessage);
+		procdata("test");
+		</script>
+	</body>
+</html>
