@@ -35,7 +35,8 @@ just add a processor for the arg "qrvalue".
 With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code.
 <pre>
   <code>
-	&lt;?php
+<code>
+  &lt;?php	
     	if (isset($_REQUEST['qrvalue'])){
 		$qrvalue=$_REQUEST['qrvalue'];
 		$pcode=@$_REQUEST['pcode'];
@@ -45,14 +46,13 @@ With "pcode" param to compare the code if the same as the previous scan, if the 
 				$error = $mysqli-&gt;error;	
 			}
 		}
-		
-		$url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue";
+		$url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue';
 		?&gt;
 			&lt;script&gt;window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent("&lt;?=$url;?&gt;");&lt;/script&gt;
 		&lt;?php
 		exit;
 	}
-	?&gt;
+  ?&gt;
   &lt;button onclick="openScanner()"&gt;Open Scanner&lt;/button&gt;
   &lt;script&gt;
     function openScanner(){
