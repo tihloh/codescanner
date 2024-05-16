@@ -6,7 +6,7 @@ javascript:
   window.location.href = 'https://tihloh.github.io/qrcode?url=' + encodeURIComponent(window.location.href);
 </pre>
 <br><br>
-It will return back to referrence page with result as GET args "qrvalue" after success or without result on cancel.<br>
+It will automatically activates the scanner and will return back to referrence page with result as GET args "qrvalue" on scan success or returns without result on cancel.<br>
 Something like:
 <pre>
   http://localhost/page.html?qrvalue=123
