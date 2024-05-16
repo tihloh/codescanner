@@ -11,10 +11,10 @@ Something like:
 <pre>
   http://localhost/page.html?qrvalue=123
 </pre>
-<br><br>
+<br>
 just add a processor for the arg "qrvalue".
-<br><br>
-<h3>Example</h3><br>
+<br>
+<h3>Example</h3>
 <pre>
 <code>
   <?php	
@@ -30,5 +30,6 @@ just add a processor for the arg "qrvalue".
     }
   </script>
 </code>
-</pre><br><br>
-<a href="https://tihloh.github.io/qrcode/tryme.html">Try Me</a>
+</pre>
+<br>
+<a href="https://tihloh.github.io/codescanner/tryme.html">Try Me</a>
