@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Child Content</title>
+</head>
+<body>
+<h1>Child Content</h1>
+<p>This is the content of the child page that will be embedded in the parent page.</p>
+
+<!-- The script below will be loaded and executed by the parent page's script -->
+<script>
+function sendMessageToParent() {
+  // Create a custom event to send a message to the parent page
+  const event = new CustomEvent('messageFromChild', { detail: 'Hello from child content!' });
+  document.dispatchEvent(event);
+}
+
+// Example button to trigger the message
+const button = document.createElement('button');
+button.innerText = 'Send Message to Parent';
+button.onclick = sendMessageToParent;
+document.body.appendChild(button);
+</script>
+</body>
+</html>
