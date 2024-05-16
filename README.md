@@ -34,7 +34,6 @@ just add a processor for the arg "qrvalue".
 <h3>Example #2</h3>
 With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code.
 <pre>
-  <code>
 <code>
   &lt;?php	
     	if (isset($_REQUEST['qrvalue'])){
