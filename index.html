@@ -7,21 +7,50 @@
     <!-- Include Bootstrap CSS from CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        #interactive {
-            width: 100%;
-            max-width: 500px;
-            margin: auto;
-            display: block;
-        }
-        video {
-            width: 100%;
-        }
-        canvas {
-            display: none;
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
         }
         .scanner-container {
-            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        video, canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .overlay h1 {
             margin-top: 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .controls button {
+            margin: 5px;
         }
     </style>
     <!-- Include QuaggaJS and jsQR from CDNs -->
@@ -29,12 +58,12 @@
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1 id="caption" class="text-center mt-5">Scan Your Code</h1>
-        <div class="scanner-container">
-            <video id="video" playsinline autoplay class="border"></video>
-            <canvas id="canvas"></canvas>
-            <div id="controls" class="mt-3">
+    <div class="scanner-container">
+        <video id="video" playsinline autoplay></video>
+        <canvas id="canvas"></canvas>
+        <div id="overlay" class="overlay">
+            <h1>Scan Your Code</h1>
+            <div class="controls">
                 <button id="cancel-button" class="btn btn-danger">Cancel</button>
             </div>
         </div>
@@ -44,9 +73,10 @@
         const videoElement = document.getElementById('video');
         const canvasElement = document.getElementById('canvas');
         const canvasContext = canvasElement.getContext('2d');
+        const overlayElement = document.getElementById('overlay');
         let videoStream;
-        var url;
-        var iframe;
+        const urlParams = new URLSearchParams(window.location.search);
+        const isIframe = urlParams.get('iframe') === '1';
 
         const startScanner = async () => {
             try {
@@ -94,6 +124,7 @@
 
             Quagga.onDetected((data) => {
                 procdata(data.codeResult.code);
+                if (!isIframe) stopScanner();
             });
         };
 
@@ -107,6 +138,7 @@
                     const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
                     if (code) {
                         procdata(code.data);
+                        if (!isIframe) stopScanner();
                     } else {
                         requestAnimationFrame(checkQRCode);
                     }
@@ -118,34 +150,37 @@
         };
 
         function procdata(data) {
-            if(iframe==1){
-                // Sends data to iframe parent
+            if (isIframe) {
                 window.parent.postMessage({ token: 'codescanner', message: data }, '*');
-            }else{
+            } else {
                 // Redirect back to the previous page with the result as a query parameter
-                const fullURL = url + (url.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
+                const urlParam = urlParams.get('url');
+                const decodedUrl = decodeURIComponent(urlParam);
+                const fullURL = decodedUrl + (decodedUrl.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
                 window.location.href = fullURL;
-                stopScanner();
             }
         }
 
         function cancelScan() {
-            window.location.href = url;
+            if (isIframe) {
+                window.parent.postMessage({ token: 'codescanner', message: null }, '*');
+            } else {
+                const urlParam = urlParams.get('url');
+                const decodedUrl = decodeURIComponent(urlParam);
+                window.location.href = decodedUrl;
+            }
         }
 
-        window.onload = (event) => {
-            startScanner();
-            const urlParams = new URLSearchParams(window.location.search);
-            url = decodeURIComponent(urlParams.get('url'));
-            iframe = urlParams.get('iframe');
-            if(iframe==1){
-                document.getElementById("caption").style.display = "none";
-                document.getElementById("controls").style.display = "none";
-            }
-        };
+        // Start the scanner on page load
+        window.onload = startScanner;
 
         // Add event listener for the cancel button
         document.getElementById('cancel-button').addEventListener('click', cancelScan);
+
+        // Hide overlay if iframe
+        if (isIframe) {
+            overlayElement.style.display = 'none';
+        }
     </script>
     <!-- Include Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
