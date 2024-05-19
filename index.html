@@ -122,8 +122,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const iframeParam = urlParams.get('iframe');
             if(iframeParam==1){
-                const event = new CustomEvent('messageFromChild', { detail: inputValue });
-                document.dispatchEvent(event);
+                window.parent.postMessage({ token: 'codescanner', message: encodeURIComponent(data) }, '*');
             }else{
                 const urlParam = urlParams.get('url');
                 const decodedUrl = decodeURIComponent(urlParam);
