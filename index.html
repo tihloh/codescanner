@@ -86,6 +86,7 @@
                 scanQRCode();
             } catch (err) {
                 console.error('Error accessing camera:', err);
+                alert('Error accessing camera: ' + err.message);
             }
         };
 
@@ -117,6 +118,7 @@
             }, (err) => {
                 if (err) {
                     console.log(err);
+                    alert('Error initializing barcode scanner: ' + err.message);
                     return;
                 }
                 Quagga.start();
