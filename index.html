@@ -134,6 +134,7 @@
         }
 
         window.onload = (event) => {
+            startScanner();
             const urlParams = new URLSearchParams(window.location.search);
             url = decodeURIComponent(urlParams.get('url'));
             iframe = urlParams.get('iframe');
@@ -141,7 +142,6 @@
                 document.getElementById("caption").style.display = "none";
                 document.getElementById("controls").style.display = "none";
             }
-            startScanner;
         };
 
         // Add event listener for the cancel button
