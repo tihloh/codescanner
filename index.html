@@ -7,21 +7,44 @@
     <!-- Include Bootstrap CSS from CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        #interactive {
-            width: 100%;
-            max-width: 500px;
-            margin: auto;
-            display: block;
-        }
-        video {
-            width: 100%;
-        }
-        canvas {
-            display: none;
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: black;
+            color: white;
         }
         .scanner-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #caption, #controls {
+            position: absolute;
+            width: 100%;
             text-align: center;
-            margin-top: 20px;
+            z-index: 1;
+        }
+        #caption {
+            top: 10%;
+            font-size: 2em;
+        }
+        #controls {
+            bottom: 10%;
+        }
+        #controls button {
+            margin: 0 10px;
         }
     </style>
     <!-- Include QuaggaJS and jsQR from CDNs -->
@@ -29,14 +52,12 @@
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1 id="caption" class="text-center mt-5">Scan Your Code</h1>
-        <div class="scanner-container">
-            <video id="video" playsinline autoplay class="border"></video>
-            <canvas id="canvas"></canvas>
-            <div id="controls" class="mt-3">
-                <button id="cancel-button" class="btn btn-danger">Cancel</button>
-            </div>
+    <div class="scanner-container">
+        <video id="video" playsinline autoplay></video>
+        <canvas id="canvas"></canvas>
+        <h1 id="caption">Scan Your Code</h1>
+        <div id="controls">
+            <button id="cancel-button" class="btn btn-danger">Cancel</button>
         </div>
     </div>
 
@@ -45,9 +66,8 @@
         const canvasElement = document.getElementById('canvas');
         const canvasContext = canvasElement.getContext('2d');
         let videoStream;
-        const urlParams = new URLSearchParams(window.location.search);
-        const url = decodeURIComponent(urlParams.get('url'));
-        const iframe = urlParams.get('iframe');
+        let url;
+        let iframe;
 
         const startScanner = async () => {
             try {
@@ -133,6 +153,9 @@
 
         window.onload = (event) => {
             startScanner();
+            const urlParams = new URLSearchParams(window.location.search);
+            url = decodeURIComponent(urlParams.get('url'));
+            iframe = urlParams.get('iframe');
             if (iframe == 1) {
                 document.getElementById("caption").style.display = "none";
                 document.getElementById("controls").style.display = "none";
