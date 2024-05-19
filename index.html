@@ -30,7 +30,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mt-5">Scan Your Code</h1>
+        <h1 id="caption" class="text-center mt-5">Scan Your Code</h1>
         <div class="scanner-container">
             <video id="video" playsinline autoplay class="border"></video>
             <canvas id="canvas"></canvas>
@@ -45,6 +45,8 @@
         const canvasElement = document.getElementById('canvas');
         const canvasContext = canvasElement.getContext('2d');
         let videoStream;
+        var url;
+        var iframe;
 
         const startScanner = async () => {
             try {
@@ -92,7 +94,6 @@
 
             Quagga.onDetected((data) => {
                 procdata(data.codeResult.code);
-                stopScanner();
             });
         };
 
@@ -106,7 +107,6 @@
                     const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
                     if (code) {
                         procdata(code.data);
-                        stopScanner();
                     } else {
                         requestAnimationFrame(checkQRCode);
                     }
@@ -118,28 +118,31 @@
         };
 
         function procdata(data) {
-            // Redirect back to the previous page with the result as a query parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const iframeParam = urlParams.get('iframe');
-            if(iframeParam==1){
-                window.parent.postMessage({ token: 'codescanner', message: encodeURIComponent(data) }, '*');
+            if(iframe==1){
+                // Sends data to iframe parent
+                window.parent.postMessage({ token: 'codescanner', message: data }, '*');
             }else{
-                const urlParam = urlParams.get('url');
-                const decodedUrl = decodeURIComponent(urlParam);
-                const fullURL = decodedUrl + (decodedUrl.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
+                // Redirect back to the previous page with the result as a query parameter
+                const fullURL = url + (url.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
                 window.location.href = fullURL;
+                stopScanner();
             }
         }
 
         function cancelScan() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlParam = urlParams.get('url');
-            const decodedUrl = decodeURIComponent(urlParam);
-            window.location.href = decodedUrl;
+            window.location.href = url;
         }
 
-        // Start the scanner on page load
-        window.onload = startScanner;
+        window.onload = (event) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            url = decodeURIComponent(urlParams.get('url'));
+            iframe = urlParams.get('iframe');
+            if(iframe==1){
+                document.getElementById("caption").style.display = "none";
+                document.getElementById("controls").style.display = "none";
+            }
+            startScanner;
+        };
 
         // Add event listener for the cancel button
         document.getElementById('cancel-button').addEventListener('click', cancelScan);
