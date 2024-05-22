@@ -1,4 +1,3 @@
-<a href="https://tihloh.github.io/codescanner/demo1.html" target=blank_>SHOW DEMO #1</a>
 <h2>How to use?</h2>
 javascript:
 <pre><code>
@@ -15,6 +14,25 @@ http://localhost/page.html?qrvalue=123
 <br>
 just add a processor for the arg "qrvalue".
 <br>
+<h3>Example using only html and javascript</h3>
+<pre>
+<code>
+&lt;h3 id="result"&gt;Result: &lt;/h3&gt;
+&lt;button onclick="openScanner()"&gt;Open Scanner&lt;/button&gt;
+&lt;script&gt;
+    function openScanner(){
+        window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+    }
+    window.onload = (event) =&gt; {
+        const urlParams = new URLSearchParams(window.location.search);
+        const result = decodeURIComponent(urlParams.get('result'));
+        document.getElementById('result').innerText = "Result: " + result;
+    };
+&lt;/script&gt;
+</code>
+</pre>
+<a href="https://tihloh.github.io/codescanner/demo1.html" target=blank_>SHOW DEMO #1</a>
+<hr>
 <h3>Example #1</h3>
 <pre>
 <code>
