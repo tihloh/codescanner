@@ -21,7 +21,6 @@ https://tihloh.github.io/codescanner
 <p>
 On button click, it will automatically activate the scanner. On scan success, it will return to the reference page with the result as a GET parameter "result". If canceled, it will return without the result.
 <p>
-<br>
 <h3>Example #1: Using only html and javascript</h3>
 <pre>
 <code>
