@@ -36,7 +36,6 @@ Embedded Scanner on iFrame
 <pre><code>
 &lt;h1&gt;Embedded QR-Code/Barcode Scanner&lt;/h1&gt;
 &lt;iframe src="https://tihloh.github.io/codescanner?iframe=1" id="myIframe" width="100%" height="300vp" style="-webkit-transform:scale(1);-moz-transform-scale(1);border:none;"&gt;&lt;/iframe&gt;
-
 &lt;h3 id="result"&gt;Waiting...&lt;/h3&gt;
 &lt;script&gt;
     	function handleMessage(event) {
