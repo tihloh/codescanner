@@ -1,5 +1,3 @@
-<a href="https://tihloh.github.io/codescanner/demo.html" target=blank_>DEMO</a>
-
 <h2>How to use?</h2>
 javascript:
 <pre><code>
@@ -49,8 +47,8 @@ Embedded Scanner on iFrame
 &lt;/script&gt;
 </code>
 </pre>
-
-
+<a href="https://tihloh.github.io/codescanner/demo.html" target=blank_>SHOW DEMO</a>
+<hr>
 <h3>Example #3</h3>
 With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code.
 <pre>
