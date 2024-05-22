@@ -17,8 +17,9 @@ Link:
 <pre><code>
 https://tihloh.github.io/codescanner
 </code></pre>
+<h2>External Mode</h2>
 <p>
-It will automatically activates the scanner and will return back to referrence page with result as GET param "qrvalue" on scan success or returns without result on cancel.
+On button click, it will automatically activate the scanner. On scan success, it will return to the reference page with the result as a GET parameter "result". If canceled, it will return without the result.
 <p>
 <br>
 <h3>Example #1: Using only html and javascript</h3>
