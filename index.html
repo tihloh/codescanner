@@ -141,7 +141,7 @@
                 window.parent.postMessage({ token: 'codescanner', message: data }, '*');
             } else {
                 // Redirect back to the previous page with the result as a query parameter
-                const fullURL = url + (url.includes('?') ? '&' : '?') + 'qrvalue=' + encodeURIComponent(data);
+                const fullURL = url + (url.includes('?') ? '&' : '?') + 'result=' + encodeURIComponent(data);
                 window.location.href = fullURL;
                 stopScanner();
             }
