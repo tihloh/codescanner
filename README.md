@@ -38,7 +38,7 @@ On button click, it will automatically activate the scanner. On scan success, it
 &lt;/script&gt;
 </code>
 </pre>
-<a href="https://tihloh.github.io/codescanner/demo1.html" target=blank_>SHOW DEMO #1</a>
+Check out this <a href="https://tihloh.github.io/codescanner/demo1.html" target=blank_>LIVE DEMO</a>!
 <h3>Example #2: Using PHP</h3>
 <pre>
 <code>
@@ -56,21 +56,6 @@ On button click, it will automatically activate the scanner. On scan success, it
 &lt;/script&gt;
 </code>
 </pre>
-<h3>Example #2</h3>
-Embedded Scanner on iFrame
-<pre><code>
-&lt;h1&gt;Embedded QR-Code/Barcode Scanner&lt;/h1&gt;
-&lt;iframe src="https://tihloh.github.io/codescanner?iframe=1" id="myIframe" width="100%" height="300vp" style="-webkit-transform:scale(1);-moz-transform-scale(1);border:none;"&gt;&lt;/iframe&gt;
-&lt;h3 id="result"&gt;Waiting...&lt;/h3&gt;
-&lt;script&gt;
-    	function handleMessage(event) {
-    	    	document.getElementById('result').innerText = event.data.message;
-    	}
-    	window.addEventListener('message', handleMessage);
-&lt;/script&gt;
-</code></pre>
-<a href="https://tihloh.github.io/codescanner/demo2.html" target=blank_>SHOW DEMO #2</a>
-<hr>
 <h3>Example #3</h3>
 With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code.
 <pre>
@@ -98,5 +83,20 @@ With "pcode" param to compare the code if the same as the previous scan, if the 
         window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
     }
 &lt;/script&gt;
+<h2>Embedded Mode</h2>
+<h3>Example</h3>
+Embedded Scanner on iFrame
+<pre><code>
+&lt;h1&gt;Embedded QR-Code/Barcode Scanner&lt;/h1&gt;
+&lt;iframe src="https://tihloh.github.io/codescanner?iframe=1" id="myIframe" width="100%" height="300vp" style="-webkit-transform:scale(1);-moz-transform-scale(1);border:none;"&gt;&lt;/iframe&gt;
+&lt;h3 id="result"&gt;Waiting...&lt;/h3&gt;
+&lt;script&gt;
+    	function handleMessage(event) {
+    	    	document.getElementById('result').innerText = event.data.message;
+    	}
+    	window.addEventListener('message', handleMessage);
+&lt;/script&gt;
+</code></pre>
+Check out this <a href="https://tihloh.github.io/codescanner/demo2.html" target=blank_>LIVE DEMO</a>!
 </code>
 </pre>
