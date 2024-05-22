@@ -1,0 +1,13 @@
+<h3 id="result">Result: </h3>
+<button onclick="openScanner()">Open Scanner</button>
+<script>
+    function openScanner(){
+        window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+    }
+	
+    window.onload = (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const result = decodeURIComponent(urlParams.get('result'));
+        document.getElementById('result').innerText = "Result: " + result;
+    };
+</script>
