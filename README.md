@@ -83,6 +83,8 @@ With "pcode" param to compare the code if the same as the previous scan, if the 
         window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
     }
 &lt;/script&gt;
+</code>
+</pre>
 <h2>Embedded Mode</h2>
 <h3>Example</h3>
 Embedded Scanner on iFrame
@@ -98,5 +100,3 @@ Embedded Scanner on iFrame
 &lt;/script&gt;
 </code></pre>
 Check out this <a href="https://tihloh.github.io/codescanner/demo2.html" target=blank_>LIVE DEMO</a>!
-</code>
-</pre>
