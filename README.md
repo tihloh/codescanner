@@ -1,4 +1,12 @@
-<h2>How to use?</h2>
+<h1>JavaScript QR Code and Barcode Scanner</h1>
+<p>This project provides a JavaScript-based QR code and barcode scanner that can be easily integrated into any HTML-based webpage. It supports scanning using the camera on both HTTPS and localhost environments, while also working on HTTP (though HTTP does not support camera access due to security reasons).</p>
+<h2>Features</h2>
+<ul>
+    <li><strong>QR Code Scanning</strong>: Quickly scan and decode QR codes.</li>
+    <li><strong>Barcode Scanning</strong>: Supports various barcode formats.</li>
+    <li><strong>Camera Access</strong>: Utilizes the device's camera for scanning (HTTPS and localhost only).</li>
+    <li><strong>Cross-Browser Compatibility</strong>: Works on major browsers that support camera access.</li>
+</ul>
 javascript:
 <pre><code>
 window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
