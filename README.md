@@ -1,11 +1,10 @@
 <a href="https://tihloh.github.io/codescanner/demo.html" target=blank_>DEMO</a>
 
 <h2>How to use?</h2>
-<br>
 javascript:
-<pre>
+<pre><code>
 window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
-</pre>
+</code></pre>
 <br>
 It will automatically activates the scanner and will return back to referrence page with result as GET param "qrvalue" on scan success or returns without result on cancel.
 <br>
