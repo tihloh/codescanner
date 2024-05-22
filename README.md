@@ -7,13 +7,6 @@ window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURICo
 It will automatically activates the scanner and will return back to referrence page with result as GET param "qrvalue" on scan success or returns without result on cancel.
 <br>
 <br>
-Something like:
-<pre>
-http://localhost/page.html?qrvalue=123
-</pre>
-<br>
-just add a processor for the arg "qrvalue".
-<br>
 <h3>Example #1: Using only html and javascript</h3>
 <pre>
 <code>
@@ -36,9 +29,9 @@ just add a processor for the arg "qrvalue".
 <pre>
 <code>
 &lt;?php	
-    if (isset($_REQUEST['qrvalue'])){
-    	$qrvalue=$_REQUEST['qrvalue'];
-    	echo "Scan result: ".$qrvalue;
+    if (isset($_REQUEST['result'])){
+    	$result=$_REQUEST['result'];
+    	echo "Scan result: ".$result;
     }
 ?&gt;
 &lt;button onclick="openScanner()"&gt;Open Scanner&lt;/button&gt;
