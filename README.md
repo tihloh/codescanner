@@ -1,4 +1,4 @@
-<a href="https://tihloh.github.io/codescanner/demo2.html" target=blank_>SHOW DEMO #1</a>
+<a href="https://tihloh.github.io/codescanner/demo1.html" target=blank_>SHOW DEMO #1</a>
 <h2>How to use?</h2>
 javascript:
 <pre><code>
