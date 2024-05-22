@@ -41,10 +41,10 @@ Embedded Scanner on iFrame
 
 &lt;h3 id="result"&gt;Waiting...&lt;/h3&gt;
 &lt;script&gt;
-	function handleMessage(event) {
-		document.getElementById('result').innerText = event.data.message;
-	}
-	window.addEventListener('message', handleMessage);
+    	function handleMessage(event) {
+    	    	document.getElementById('result').innerText = event.data.message;
+    	}
+    	window.addEventListener('message', handleMessage);
 &lt;/script&gt;
 </code>
 </pre>
