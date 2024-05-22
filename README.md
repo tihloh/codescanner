@@ -7,13 +7,13 @@
     <li><strong>Camera Access</strong>: Utilizes the device's camera for scanning (HTTPS and localhost only).</li>
     <li><strong>Cross-Browser Compatibility</strong>: Works on major browsers that support camera access.</li>
 </ul>
-javascript:
+Link:
 <pre><code>
-window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+https://tihloh.github.io/codescanner
 </code></pre>
-<br>
+<p>
 It will automatically activates the scanner and will return back to referrence page with result as GET param "qrvalue" on scan success or returns without result on cancel.
-<br>
+<p>
 <br>
 <h3>Example #1: Using only html and javascript</h3>
 <pre>
