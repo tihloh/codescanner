@@ -44,7 +44,6 @@ Embedded Scanner on iFrame
 	function handleMessage(event) {
 		document.getElementById('result').innerText = event.data.message;
 	}
-				
 	window.addEventListener('message', handleMessage);
 &lt;/script&gt;
 </code>
