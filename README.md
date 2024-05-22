@@ -1,15 +1,18 @@
-Site: https://tihloh.github.io/codescanner/demo.html
+<a href="https://tihloh.github.io/codescanner/demo.html" target=blank_>DEMO</a>
 
-<h2>How to use?</h2><br>
+<h2>How to use?</h2>
+<br>
 javascript:
 <pre>
-  window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
 </pre>
 <br>
-It will automatically activates the scanner and will return back to referrence page with result as GET param "qrvalue" on scan success or returns without result on cancel.<br><br>
+It will automatically activates the scanner and will return back to referrence page with result as GET param "qrvalue" on scan success or returns without result on cancel.
+<br>
+<br>
 Something like:
 <pre>
-  http://localhost/page.html?qrvalue=123
+http://localhost/page.html?qrvalue=123
 </pre>
 <br>
 just add a processor for the arg "qrvalue".
@@ -26,15 +29,13 @@ just add a processor for the arg "qrvalue".
 &lt;button onclick="openScanner()"&gt;Open Scanner&lt;/button&gt;
 &lt;script&gt;
     function openScanner(){
-    	window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+        window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
     }
 &lt;/script&gt;
 </code>
 </pre>
-
 <h3>Example #3</h3>
 Embedded Scanner on iFrame
-
 <pre>
 <code>
 &lt;h1&gt;Embedded QR-Code/Barcode Scanner&lt;/h1&gt;
