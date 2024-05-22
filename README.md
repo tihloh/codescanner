@@ -1,4 +1,4 @@
-Site: https://tihloh.github.io/codescanner/
+Site: https://tihloh.github.io/codescanner/demo.html
 
 <h2>How to use?</h2><br>
 javascript:
