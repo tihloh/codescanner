@@ -6,6 +6,12 @@
     <li><strong>Barcode Scanning</strong>: Supports various barcode formats.</li>
     <li><strong>Camera Access</strong>: Utilizes the device's camera for scanning (HTTPS and localhost only).</li>
     <li><strong>Cross-Browser Compatibility</strong>: Works on major browsers that support camera access.</li>
+    <li><strong>Two Modes</strong>:
+        <ul>
+            <li><strong>External Mode</strong>: Open scanner in a new window on button click.</li>
+            <li><strong>Embedded Mode</strong>: Embed scanner within the page using an iframe with continuous multiple scanning capability.</li>
+        </ul>
+    </li>
 </ul>
 Link:
 <pre><code>
