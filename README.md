@@ -14,7 +14,7 @@ http://localhost/page.html?qrvalue=123
 <br>
 just add a processor for the arg "qrvalue".
 <br>
-<h3>Example using only html and javascript</h3>
+<h3>Example #1: Using only html and javascript</h3>
 <pre>
 <code>
 &lt;h3 id="result"&gt;Result: &lt;/h3&gt;
@@ -32,8 +32,7 @@ just add a processor for the arg "qrvalue".
 </code>
 </pre>
 <a href="https://tihloh.github.io/codescanner/demo1.html" target=blank_>SHOW DEMO #1</a>
-<hr>
-<h3>Example #1</h3>
+<h3>Example #2: Using PHP</h3>
 <pre>
 <code>
 &lt;?php	
