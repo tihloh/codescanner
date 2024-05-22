@@ -17,6 +17,7 @@ Link:
 <pre><code>
 https://tihloh.github.io/codescanner
 </code></pre>
+<hr>
 <h2>External Mode</h2>
 <p>
 On button click, it will automatically activate the scanner. On scan success, it will return to the reference page with the result as a GET parameter "result". If canceled, it will return without the result.
@@ -85,6 +86,7 @@ With "pcode" param to compare the code if the same as the previous scan, if the 
 &lt;/script&gt;
 </code>
 </pre>
+<hr>
 <h2>Embedded Mode</h2>
 <h3>Example</h3>
 Embedded Scanner on iFrame
