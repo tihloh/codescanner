@@ -90,6 +90,11 @@ Embedded Mode:
 ````
 #### [Embedded QR-Code/Barcode Scanner Demo](https://tihloh.github.io/codescanner/demo2.html)
 
+Credits:
+----
+This project uses [quaggaJS](https://github.com/serratus/quaggaJS)
+    by serratus Christoph Oberhofer
+
 License:
 ----
 CodeScanner is shared under the [MIT license](https://raw.githubusercontent.com/tihloh/codescanner/main/LICENSE). This means you can modify and use it however you want, even for comercial use. But please give this the Github repo a :star:.
