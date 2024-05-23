@@ -92,8 +92,9 @@ Embedded Mode:
 
 Credits:
 ----
-This project uses [quaggaJS](https://github.com/serratus/quaggaJS)
-    by serratus Christoph Oberhofer
+This project uses 
+[jsQR](https://github.com/serratus/quaggaJS) by ***cuzmo*** `Cosmo Wolfe`
+[quaggaJS](https://github.com/serratus/quaggaJS) by ***serratus*** `Christoph Oberhofer`
 
 License:
 ----
