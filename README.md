@@ -16,29 +16,17 @@ Demo
 #### [Demo #1](https://tihloh.github.io/codescanner/demo1.html)
 #### [Demo #2](https://tihloh.github.io/codescanner/demo2.html)
 
-Supported barcodes:
+Features:
 ----
-* [CODE128](https://github.com/lindell/JsBarcode/wiki/CODE128)
-  * CODE128 (automatic mode switching)
-  * CODE128 A/B/C (force mode)
-* [EAN](https://github.com/lindell/JsBarcode/wiki/EAN)
-  * EAN-13
-  * EAN-8
-  * EAN-5
-  * EAN-2
-  * UPC (A)
-  * UPC (E)
-* [CODE39](https://github.com/lindell/JsBarcode/wiki/CODE39)
-* [ITF](https://github.com/lindell/JsBarcode/wiki/ITF-14)
-  * ITF
-  * ITF-14
-* [MSI](https://github.com/lindell/JsBarcode/wiki/MSI)
-  * MSI10
-  * MSI11
-  * MSI1010
-  * MSI1110
-* [Pharmacode](https://github.com/lindell/JsBarcode/wiki/pharmacode)
-* [Codabar](https://github.com/lindell/JsBarcode/wiki/codabar)
+* QR Code Scanning: Quickly scan and decode QR codes.
+* Barcode Scanning: Supports various barcode formats.
+* Camera Access: Utilizes the device's camera for scanning (HTTPS and localhost only).
+* Cross-Browser Compatibility: Works on major browsers that support camera access.
+* Two Modes:
+  * External Mode: Open scanner in a new window on button click.
+  * Embedded Mode: Embed scanner within the page using an iframe with continuous multiple scanning capability.
+
+
 
 Examples for browsers:
 ----
