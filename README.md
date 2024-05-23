@@ -95,6 +95,8 @@ Credits:
 This project uses 
 * [jsQR](https://github.com/serratus/quaggaJS) by ***cuzmo*** `Cosmo Wolfe`
 * [quaggaJS](https://github.com/serratus/quaggaJS) by ***serratus*** `Christoph Oberhofer`
+* [Bootstrap](https://getbootstrap.com/)
+* [JQuery](https://jquery.com/)
 
 License:
 ----
