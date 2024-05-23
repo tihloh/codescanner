@@ -2,11 +2,6 @@ Introduction
 ----
 **CodeScanner** provides a JavaScript-based **QR code and barcode scanner** that can be easily integrated into any **HTML-based** webpage. It supports scanning using the camera on both HTTPS and localhost environments, while also working on HTTP (though HTTP does not support camera access due to security reasons).
 
-Demo
-----
-#### [Demo #1](https://tihloh.github.io/codescanner/demo1.html)
-#### [Demo #2](https://tihloh.github.io/codescanner/demo2.html)
-
 Features:
 ----
 * **QR Code Scanning**: Quickly scan and decode QR codes.
@@ -55,16 +50,16 @@ External Mode:
 With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code. 
 ````php
 <?php	
-    if (isset($_REQUEST['qrvalue'])){
-        $qrvalue=$_REQUEST['qrvalue'];
+    if (isset($_REQUEST['result'])){
+        $result=$_REQUEST['result'];
         $pcode=@$_REQUEST['pcode'];
         if($pcode!=$qrvalue){
-            $q="UPDATE tblemps SET scancode='$qrvalue' WHERE id='$user_id'";
+            $q="UPDATE tblemps SET scancode='$result' WHERE id='$user_id'";
             if (!$mysqli->query($q)) {
                 $error = $mysqli->error;	
             }
         }
-        $url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue';
+        $url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$result';
 ?>
         <script>window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent("<?=$url;?>");</script>
 <?php
@@ -93,7 +88,7 @@ Embedded Mode:
     	window.addEventListener('message', handleMessage);
 </script>
 ````
-#### [Demo #1](https://tihloh.github.io/codescanner/demo2.html)
+#### [Embedded QR-Code/Barcode Scanner Demo](https://tihloh.github.io/codescanner/demo2.html)
 
 License:
 ----
