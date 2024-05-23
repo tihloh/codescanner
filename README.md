@@ -18,13 +18,13 @@ Demo
 
 Features:
 ----
-* QR Code Scanning: Quickly scan and decode QR codes.
-* Barcode Scanning: Supports various barcode formats.
-* Camera Access: Utilizes the device's camera for scanning (HTTPS and localhost only).
-* Cross-Browser Compatibility: Works on major browsers that support camera access.
-* Two Modes:
-  * External Mode: Open scanner in a new window on button click.
-  * Embedded Mode: Embed scanner within the page using an iframe with continuous multiple scanning capability.
+* **QR Code Scanning**: Quickly scan and decode QR codes.
+* **Barcode Scanning**: Supports various barcode formats.
+* **Camera Access: Utilizes the device's camera for scanning (HTTPS and localhost only).
+* **Cross-Browser Compatibility: Works on major browsers that support camera access.
+* **Two Modes**:
+  * **External Mode**: Open scanner in a new window on button click.
+  * **Embedded Mode**: Embed scanner within the page using an iframe with continuous multiple scanning capability.
 
 
 
