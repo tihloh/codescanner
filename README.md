@@ -23,19 +23,11 @@ https://tihloh.github.io/codescanner
 On button click, it will automatically activate the scanner. On scan success, it will return to the reference page with the result as a GET parameter "result". If canceled, it will return without the result.
 <p>
 <h3>Example #1: Using only html and javascript</h3>
+#### Simple example:
 ````javascript
-<h3 id="result">Result: </h3>
-<button onclick="openScanner()">Open Scanner</button>
-<script>
-    function openScanner(){
-        window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
-    }
-    window.onload = (event) => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const result = decodeURIComponent(urlParams.get('result'));
-        document.getElementById('result').innerText = "Result: " + result;
-    };
-</script>
+JsBarcode("#barcode", "Hi!");
+// or with jQuery
+$("#barcode").JsBarcode("Hi!");
 ````
 <pre>
 <code>
