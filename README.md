@@ -35,12 +35,22 @@ External Mode:
     };
 </script>
 ````
+#### [Demo #1](https://tihloh.github.io/codescanner/demo1.html)
 
 #### Simple example:
-````javascript
-JsBarcode("#barcode", "Hi!");
-// or with jQuery
-$("#barcode").JsBarcode("Hi!");
+````php
+<?php	
+    if (isset($_REQUEST['result'])){
+    	$result=$_REQUEST['result'];
+    	echo "Scan result: ".$result;
+    }
+?>
+<button onclick="openScanner()">Open Scanner</button>
+<script>
+    function openScanner(){
+        window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+    }
+</script>
 ````
 
 ##### Result:
