@@ -37,7 +37,7 @@ External Mode:
 ````
 #### [Demo #1](https://tihloh.github.io/codescanner/demo1.html)
 
-#### Simple example:
+#### Example #2: Using PHP
 ````php
 <?php	
     if (isset($_REQUEST['result'])){
