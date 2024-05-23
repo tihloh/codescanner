@@ -1,12 +1,3 @@
-<p align="center">
-	<a href="http://lindell.me/JsBarcode"><img src="http://lindell.me/JsBarcode/other/logo.svg" alt="JsBarcode"/></a>
-	<br><br>
-	<a href="http://travis-ci.org/lindell/JsBarcode"><img src="https://secure.travis-ci.org/lindell/JsBarcode.svg" alt="Build Status"/></a>
-	<a href="https://scrutinizer-ci.com/g/lindell/JsBarcode/?branch=master"><img src="https://scrutinizer-ci.com/g/lindell/JsBarcode/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"/></a>
-	<a href="https://www.jsdelivr.com/package/npm/jsbarcode"><img src="https://data.jsdelivr.com/v1/package/npm/jsbarcode/badge?style=rounded" alt="CDN"></a>
-	<a href="https://github.com/lindell/JsBarcode/blob/master/MIT-LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
-</p>
-
 Introduction
 ----
 **CodeScanner** provides a JavaScript-based **QR code and barcode scanner** that can be easily integrated into any **HTML-based** webpage. It supports scanning using the camera on both HTTPS and localhost environments, while also working on HTTP (though HTTP does not support camera access due to security reasons).
