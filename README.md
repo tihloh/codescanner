@@ -29,7 +29,7 @@ External Mode:
     };
 </script>
 ````
-#### [Demo #1](https://tihloh.github.io/codescanner/demo1.html)
+#### [HTML and JavaScript Demo](https://tihloh.github.io/codescanner/demo1.html)
 
 #### Example #2: Using PHP
 ````php
