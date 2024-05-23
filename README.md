@@ -53,9 +53,6 @@ External Mode:
 </script>
 ````
 
-##### Result:
-![Result](https://s3-eu-west-1.amazonaws.com/js-barcode/barcodes/simple.svg)
-
 License:
 ----
 CodeScanner is shared under the [MIT license](https://raw.githubusercontent.com/tihloh/codescanner/main/LICENSE). This means you can modify and use it however you want, even for comercial use. But please give this the Github repo a :star:.
