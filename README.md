@@ -19,7 +19,6 @@ Features:
 
 External Mode:
 ----
-
 #### Example #1: Using only html and javascript
 ````html
 <h3 id="result">Result: </h3>
@@ -52,6 +51,49 @@ External Mode:
     }
 </script>
 ````
+#### Example #3:
+With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code. 
+````php
+<?php	
+    if (isset($_REQUEST['qrvalue'])){
+        $qrvalue=$_REQUEST['qrvalue'];
+        $pcode=@$_REQUEST['pcode'];
+        if($pcode!=$qrvalue){
+            $q="UPDATE tblemps SET scancode='$qrvalue' WHERE id='$user_id'";
+            if (!$mysqli->query($q)) {
+                $error = $mysqli->error;	
+            }
+        }
+        $url = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://$_SERVER[HTTP_HOST]/budget/dashboard?pcode=$qrvalue';
+?>
+        <script>window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent("<?=$url;?>");</script>
+<?php
+        exit;
+    }
+?>
+<button onclick="openScanner()">Open Scanner</button>
+<script>
+    function openScanner(){
+        window.location.href = 'https://tihloh.github.io/codescanner?url=' + encodeURIComponent(window.location.href);
+    }
+</script>
+````
+
+Embedded Mode:
+----
+#### Example: Embedded Scanner on iFrame
+````html
+<h1>Embedded QR-Code/Barcode Scanner</h1>
+<iframe src="https://tihloh.github.io/codescanner?iframe=1" id="myIframe" width="100%" height="300vp" style="-webkit-transform:scale(1);-moz-transform-scale(1);border:none;"></iframe>
+<h3 id="result">Waiting...</h3>
+<script>
+    	function handleMessage(event) {
+    	    	document.getElementById('result').innerText = event.data.message;
+    	}
+    	window.addEventListener('message', handleMessage);
+</script>
+````
+#### [Demo #1](https://tihloh.github.io/codescanner/demo2.html)
 
 License:
 ----
