@@ -24,8 +24,8 @@ External Mode:
     }
     window.onload = (event) => {
         const urlParams = new URLSearchParams(window.location.search);
-        const result = decodeURIComponent(urlParams.get('result'));
-        document.getElementById('result').innerText = "Result: " + result;
+        const codevalue = decodeURIComponent(urlParams.get('codevalue'));
+        document.getElementById('result').innerText = "Result: " + codevalue;
     };
 </script>
 ````
@@ -34,9 +34,9 @@ External Mode:
 #### Example #2: Using PHP
 ````php
 <?php	
-    if (isset($_REQUEST['result'])){
-    	$result=$_REQUEST['result'];
-    	echo "Scan result: ".$result;
+    if (isset($_REQUEST['codevalue'])){
+    	$codevalue=$_REQUEST['codevalue'];
+    	echo "Scan result: ".$codevalue;
     }
 ?>
 <button onclick="openScanner()">Open Scanner</button>
@@ -50,11 +50,11 @@ External Mode:
 With "pcode" param to compare the code if the same as the previous scan, if the code is different, saves to database, then loads the scanner again for the next code. 
 ````php
 <?php	
-    if (isset($_REQUEST['result'])){
-        $result=$_REQUEST['result'];
+    if (isset($_REQUEST['codevalue'])){
+        $codevalue=$_REQUEST['codevalue'];
         $pcode=@$_REQUEST['pcode'];
         if($pcode!=$qrvalue){
-            $q="UPDATE tblemps SET scancode='$result' WHERE id='$user_id'";
+            $q="UPDATE tblemps SET scancode='$codevalue' WHERE id='$user_id'";
             if (!$mysqli->query($q)) {
                 $error = $mysqli->error;	
             }
