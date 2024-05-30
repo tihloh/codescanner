@@ -69,6 +69,7 @@
         let url;
         let iframe;
         let raw;
+        let extra;
 
         const startScanner = async () => {
             try {
@@ -142,7 +143,7 @@
                 window.parent.postMessage({ token: 'codescanner', message: data }, '*');
             } else {
                 // Redirect back to the previous page with the result as a query parameter
-                const fullURL = url + (url.includes('?') ? '&' : '?') + 'result=' + (raw==1 ? data : encodeURIComponent(data));
+                const fullURL = url + (url.includes('?') ? '&' : '?') + 'result=' + (raw==1 ? data : encodeURIComponent(data)) + (extra!='' ? '&extra=' + extra : '');
                 window.location.href = fullURL;
                 stopScanner();
             }
@@ -158,6 +159,7 @@
             url = decodeURIComponent(urlParams.get('url'));
             iframe = urlParams.get('iframe');
             raw = urlParams.get('raw');
+            extra = urlParams.get('extra');
             if (iframe == 1) {
                 document.getElementById("caption").style.display = "none";
                 document.getElementById("controls").style.display = "none";
