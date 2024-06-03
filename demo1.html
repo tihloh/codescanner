@@ -7,7 +7,7 @@
 	
     window.onload = (event) => {
         const urlParams = new URLSearchParams(window.location.search);
-        const result = decodeURIComponent(urlParams.get('result'));
-        document.getElementById('result').innerText = "Result: " + result;
+        const codevalue = decodeURIComponent(urlParams.get('codevalue'));
+        document.getElementById('result').innerText = "Result: " + codevalue;
     };
 </script>
