@@ -57,6 +57,7 @@
         <canvas id="canvas"></canvas>
         <h1 id="caption">Scan Your Code</h1>
         <div id="controls">
+            <input type="range" id="zoom-slider" min="1" max="3" step="0.1">
             <button id="cancel-button" class="btn btn-danger">Cancel</button>
         </div>
     </div>
@@ -65,6 +66,8 @@
         const videoElement = document.getElementById('video');
         const canvasElement = document.getElementById('canvas');
         const canvasContext = canvasElement.getContext('2d');
+        const zoomSlider = document.getElementById('zoom-slider');
+        let track;
         let videoStream;
         let url;
         let iframe;
@@ -75,13 +78,27 @@
             try {
                 videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                 videoElement.srcObject = videoStream;
+                //zoom ----------------------
+                track = videoStream.getVideoTracks()[0];
+                const capabilities = track.getCapabilities();
+                if (capabilities.zoom) {
+                    zoomSlider.min = capabilities.zoom.min;
+                    zoomSlider.max = capabilities.zoom.max;
+                    zoomSlider.step = capabilities.zoom.step;
+                    zoomSlider.value = track.getSettings().zoom || 1;
+                    zoomSlider.addEventListener('input', () => {
+                        track.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] });
+                    });
+                } else {
+                    zoomSlider.style.display = 'none';
+                }
+                //zoom ----------------------
                 startBarcodeScanner();
                 scanQRCode();
             } catch (err) {
                 console.error('Error accessing camera:', err);
             }
         };
-
         const stopScanner = () => {
             if (videoStream) {
                 videoStream.getTracks().forEach(track => track.stop());
