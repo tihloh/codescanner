@@ -78,6 +78,21 @@
             try {
                 videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                 videoElement.srcObject = videoStream;
+                track = videoStream.getVideoTracks()[0]; // Capture the track
+                const capabilities = track.getCapabilities(); // Get the capabilities
+
+                if (capabilities.zoom) { // Check if zoom is supported
+                    zoomSlider.min = capabilities.zoom.min;
+                    zoomSlider.max = capabilities.zoom.max;
+                    zoomSlider.step = capabilities.zoom.step;
+                    zoomSlider.value = track.getSettings().zoom || 1;
+
+                    zoomSlider.addEventListener('input', () => {
+                        track.applyConstraints({ advanced: [{ zoom: zoomSlider.value }] }); // Apply zoom constraints
+                    });
+                } else {
+                    zoomSlider.style.display = 'none'; // Hide slider if zoom is not supported
+                }
                 startBarcodeScanner();
                 scanQRCode();
             } catch (err) {
