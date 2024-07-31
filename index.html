@@ -169,7 +169,7 @@
                 alert(codevalue+" = "+data);
                 if(pcode!=data){
                     // Redirect back to the previous page with the result as a query parameter
-                    const fullURL = url + (url.includes('?') ? '&' : '?') + 'codevalue=' + (raw==1 ? data : encodeURIComponent(data)) + (extra!='' ? '&extra=' + extra : '');
+                    const fullURL = url + (url.includes('?') ? '&' : '?') + 'codevalue=' + (raw==1 ? data : encodeURIComponent(data)) + "&pcode=" + pcode + (extra!='' ? '&extra=' + extra : '');
                     window.location.href = fullURL;
                     stopScanner();
                 }
