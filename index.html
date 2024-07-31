@@ -76,6 +76,7 @@
 
         const startScanner = async () => {
             try {
+                console.log("navigator.mediaDevices: ", navigator.mediaDevices);
                 videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                 videoElement.srcObject = videoStream;
                 track = videoStream.getVideoTracks()[0]; // Capture the track
@@ -190,7 +191,6 @@
 
         // Add event listener for the cancel button
         document.getElementById('cancel-button').addEventListener('click', cancelScan);
-        console.log("navigator.mediaDevices: ", navigator.mediaDevices);
     </script>
     <!-- Include Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
