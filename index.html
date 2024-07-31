@@ -71,6 +71,7 @@
         let videoStream;
         let url;
         let iframe;
+        let codevalue;
         let raw;
         let extra;
 
@@ -165,10 +166,12 @@
                 // Sends data to iframe parent
                 window.parent.postMessage({ token: 'codescanner', message: data }, '*');
             } else {
-                // Redirect back to the previous page with the result as a query parameter
-                const fullURL = url + (url.includes('?') ? '&' : '?') + 'codevalue=' + (raw==1 ? data : encodeURIComponent(data)) + (extra!='' ? '&extra=' + extra : '');
-                window.location.href = fullURL;
-                stopScanner();
+                if(codevalue!=data){
+                    // Redirect back to the previous page with the result as a query parameter
+                    const fullURL = url + (url.includes('?') ? '&' : '?') + 'codevalue=' + (raw==1 ? data + '&raw=1' : encodeURIComponent(data)) + (extra!='' ? '&extra=' + extra : '');
+                    window.location.href = fullURL;
+                    stopScanner();
+                }
             }
         }
 
@@ -181,6 +184,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             url = decodeURIComponent(urlParams.get('url'));
             iframe = urlParams.get('iframe');
+            codevalue = urlParams.get('codevalue');
             raw = urlParams.get('raw');
             extra = urlParams.get('extra');
             if (iframe == 1) {
