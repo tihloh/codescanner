@@ -166,6 +166,7 @@
                 // Sends data to iframe parent
                 window.parent.postMessage({ token: 'codescanner', message: data }, '*');
             } else {
+                alert(codevalue+" = "+data);
                 if(codevalue!=data){
                     // Redirect back to the previous page with the result as a query parameter
                     const fullURL = url + (url.includes('?') ? '&' : '?') + 'codevalue=' + (raw==1 ? data + '&raw=1' : encodeURIComponent(data)) + (extra!='' ? '&extra=' + extra : '');
