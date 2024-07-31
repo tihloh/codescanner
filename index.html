@@ -71,7 +71,7 @@
         let videoStream;
         let url;
         let iframe;
-        let codevalue;
+        let pcode;
         let raw;
         let extra;
 
@@ -167,7 +167,7 @@
                 window.parent.postMessage({ token: 'codescanner', message: data }, '*');
             } else {
                 alert(codevalue+" = "+data);
-                if(codevalue!=data){
+                if(pcode!=data){
                     // Redirect back to the previous page with the result as a query parameter
                     const fullURL = url + (url.includes('?') ? '&' : '?') + 'codevalue=' + (raw==1 ? data : encodeURIComponent(data)) + (extra!='' ? '&extra=' + extra : '');
                     window.location.href = fullURL;
@@ -185,7 +185,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             url = decodeURIComponent(urlParams.get('url'));
             iframe = urlParams.get('iframe');
-            codevalue = urlParams.get('codevalue');
+            pcode = urlParams.get('pcode');
             raw = urlParams.get('raw');
             extra = urlParams.get('extra');
             if (iframe == 1) {
