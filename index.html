@@ -74,6 +74,7 @@
         let pcode;
         let raw;
         let extra;
+        let icodetype;
 
         const startScanner = async () => {
             try {
@@ -100,8 +101,8 @@
                     console.warn('Zoom capabilities are not supported on this browser.');
                     zoomSlider.style.display = 'none'; // Hide slider if getCapabilities is not available
                 }
-                startBarcodeScanner();
-                scanQRCode();
+                if(icodetype==0 || icodetype==1) startBarcodeScanner();
+                if(icodetype==0 || icodetype==2) scanQRCode();
             } catch (err) {
                 console.error('Error accessing camera:', err);
             }
@@ -187,6 +188,7 @@
             pcode = urlParams.get('pcode');
             raw = urlParams.get('raw');
             extra = urlParams.get('extra');
+            icodetype = urlParams.get('icodetype') || 0;
             if (iframe == 1) {
                 document.getElementById("caption").style.display = "none";
                 document.getElementById("controls").style.display = "none";
